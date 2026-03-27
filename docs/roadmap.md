@@ -28,22 +28,27 @@ Definir e criar as páginas da aplicação seguindo o App Router:
 
 ```
 app/
- ├── login/               # já existe
- ├── dashboard/           # página inicial
- ├── entries/             # gerenciamento de lançamentos fixos e ocasionais
- ├── report/              # relatório atual (parcial, do dia 1 até hoje)
- └── history/             # histórico de relatórios mensais anteriores
+ ├── (app)/               # route group — layout compartilhado (header + nav)
+ │   ├── dashboard/       # página inicial ✓
+ │   ├── entries/         # gerenciamento de lançamentos fixos e ocasionais ✓
+ │   ├── report/          # relatório atual (parcial, do dia 1 até hoje) ✓
+ │   └── history/         # histórico de relatórios mensais anteriores ✓
+ ├── login/               # já existia ✓
+ └── signup/              # já existia ✓
 ```
+
+- [x] Criar route group `(app)` com layout compartilhado (header + nav)
+- [x] Componente `AppNav` com destaque do link ativo
+- [x] Páginas placeholder para dashboard, entries, report e history
 
 ---
 
-## Etapa 4 — API (Server Actions ou Route Handlers)
+## Etapa 4 — API (Server Actions)
 
-- [ ] CRUD de `Category` (categorias do usuário)
-- [ ] CRUD de `FixedEntry` (lançamentos fixos)
-- [ ] CRUD de `OccasionalEntry` (lançamentos ocasionais)
-- [ ] Geração de `MonthlyReport` parcial (sob demanda)
-- [ ] Geração de `MonthlyReport` final (automático ao encerrar o mês)
+- [x] CRUD de `Category` (`src/actions/categories.ts`)
+- [x] CRUD de `FixedEntry` (`src/actions/fixed-entries.ts`)
+- [x] CRUD de `OccasionalEntry` (`src/actions/occasional-entries.ts`)
+- [x] Geração de `MonthlyReport` parcial e final (`src/actions/reports.ts`)
 
 ---
 
@@ -71,7 +76,7 @@ app/
 |-------|-------------------------|-------------|
 | 1     | Banco de dados          | Concluído |
 | 2     | Autenticação            | Concluído |
-| 3     | Estrutura de rotas      | Não iniciado |
-| 4     | API                     | Não iniciado |
+| 3     | Estrutura de rotas      | Concluído |
+| 4     | API                     | Concluído |
 | 5     | UI                      | Não iniciado |
 | 6     | Lógica de relatório     | Não iniciado |
