@@ -9,16 +9,16 @@ Ordem de execução sugerida para o desenvolvimento da aplicação.
 - [x] Escolher banco de dados (Neon — PostgreSQL serverless)
 - [x] Escolher ORM (Drizzle)
 - [x] Criar o schema baseado nas [entidades documentadas](./entities.md)
-- [ ] Rodar a primeira migration (`npm run db:generate && npm run db:migrate`)
+- [x] Rodar a primeira migration (`npm run db:generate && npm run db:migrate`)
 
 ---
 
 ## Etapa 2 — Autenticação
 
-- [ ] Instalar e configurar Auth.js (NextAuth v5)
-- [ ] Implementar fluxo de login com e-mail e senha
-- [ ] Armazenar sessão do usuário
-- [ ] Criar middleware do Next.js para proteger rotas privadas
+- [x] Instalar e configurar Auth.js (NextAuth v5)
+- [x] Implementar fluxo de login com e-mail e senha (Credentials Provider + bcryptjs)
+- [x] Armazenar sessão do usuário (JWT)
+- [x] Criar middleware do Next.js para proteger rotas privadas
 
 ---
 
@@ -69,8 +69,8 @@ app/
 
 | Etapa | Descrição               | Status      |
 |-------|-------------------------|-------------|
-| 1     | Banco de dados          | Em andamento |
-| 2     | Autenticação            | Não iniciado |
+| 1     | Banco de dados          | Concluído |
+| 2     | Autenticação            | Concluído |
 | 3     | Estrutura de rotas      | Não iniciado |
 | 4     | API                     | Não iniciado |
 | 5     | UI                      | Não iniciado |
