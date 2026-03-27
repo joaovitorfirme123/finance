@@ -6,10 +6,10 @@ Ordem de execução sugerida para o desenvolvimento da aplicação.
 
 ## Etapa 1 — Banco de Dados
 
-- [ ] Escolher banco de dados (PostgreSQL recomendado)
-- [ ] Escolher ORM (Prisma ou Drizzle)
-- [ ] Criar o schema baseado nas [entidades documentadas](./entities.md)
-- [ ] Configurar e rodar as migrations iniciais
+- [x] Escolher banco de dados (Neon — PostgreSQL serverless)
+- [x] Escolher ORM (Drizzle)
+- [x] Criar o schema baseado nas [entidades documentadas](./entities.md)
+- [ ] Rodar a primeira migration (`npm run db:generate && npm run db:migrate`)
 
 ---
 
@@ -69,7 +69,7 @@ app/
 
 | Etapa | Descrição               | Status      |
 |-------|-------------------------|-------------|
-| 1     | Banco de dados          | Não iniciado |
+| 1     | Banco de dados          | Em andamento |
 | 2     | Autenticação            | Não iniciado |
 | 3     | Estrutura de rotas      | Não iniciado |
 | 4     | API                     | Não iniciado |
