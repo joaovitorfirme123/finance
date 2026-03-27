@@ -2,7 +2,7 @@ import { auth } from "@/src/auth"
 import { NextResponse } from "next/server"
 
 // Rotas que não precisam de autenticação
-const publicRoutes = ["/login"]
+const publicRoutes = ["/login", "/signup", "/api/auth"]
 
 export default auth((req) => {
   const { nextUrl, auth: session } = req
