@@ -54,19 +54,20 @@ app/
 
 ## Etapa 5 — UI dos Fluxos Principais
 
-- [ ] Dashboard: visão geral do mês atual (saldo, receitas, gastos)
-- [ ] Formulário para cadastro e edição de lançamentos fixos
-- [ ] Formulário para registro de lançamentos ocasionais
-- [ ] Página de relatório atual com gráficos (`recharts`)
-- [ ] Página de histórico de relatórios com gráficos por mês
+- [x] Dashboard: visão geral do mês atual (saldo, receitas, gastos)
+- [x] Formulário para cadastro e edição de lançamentos fixos
+- [x] Formulário para registro de lançamentos ocasionais
+- [x] Página de relatório atual com gráficos (`recharts`)
+- [x] Página de histórico de relatórios com gráficos por mês
 
 ---
 
 ## Etapa 6 — Lógica de Relatório
 
-- [ ] Agregar `FixedEntry` + `OccasionalEntry` por mês/ano
-- [ ] Calcular `expensesByCategory` e `incomesByCategory` para os gráficos
-- [ ] Implementar trigger para geração automática do relatório final (cron job ou on-demand no encerramento do mês)
+- [x] Agregar `FixedEntry` + `OccasionalEntry` por mês/ano
+- [x] Calcular `expensesByCategory` e `incomesByCategory` para os gráficos
+- [x] Finalização automática on-demand: `finalizePastReportsAction()` chamada ao acessar `/history`
+- [x] Cron job via `vercel.json` (`0 3 1 * *`) chamando `GET /api/cron/finalize-reports` (protegido por `CRON_SECRET`)
 
 ---
 
@@ -78,5 +79,5 @@ app/
 | 2     | Autenticação            | Concluído |
 | 3     | Estrutura de rotas      | Concluído |
 | 4     | API                     | Concluído |
-| 5     | UI                      | Não iniciado |
-| 6     | Lógica de relatório     | Não iniciado |
+| 5     | UI                      | Concluído |
+| 6     | Lógica de relatório     | Concluído |

@@ -2,8 +2,8 @@
 
 import { auth } from "@/src/auth"
 import { db } from "@/src/db"
-import { categories } from "@/src/db/schema"
-import { and, eq, isNull, or } from "drizzle-orm"
+import { categories, fixedEntries, occasionalEntries } from "@/src/db/schema"
+import { and, count, eq, isNull, or } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
@@ -81,6 +81,19 @@ export async function updateCategoryAction(
 export async function deleteCategoryAction(id: string) {
   const session = await auth()
   if (!session?.user?.id) return { error: "Não autenticado." }
+
+  // Verificar se há lançamentos vinculados
+  const [fixedCount] = await db
+    .select({ n: count() })
+    .from(fixedEntries)
+    .where(eq(fixedEntries.categoryId, id))
+  const [occasionalCount] = await db
+    .select({ n: count() })
+    .from(occasionalEntries)
+    .where(eq(occasionalEntries.categoryId, id))
+
+  if (Number(fixedCount.n) + Number(occasionalCount.n) > 0)
+    return { error: "Esta categoria possui lançamentos vinculados e não pode ser removida." }
 
   const [deleted] = await db
     .delete(categories)

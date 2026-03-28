@@ -4,8 +4,7 @@ import { auth } from "@/src/auth"
 import { db } from "@/src/db"
 import { categories, fixedEntries, monthlyReports, occasionalEntries } from "@/src/db/schema"
 import type { CategoryBreakdown } from "@/src/db/schema"
-import { and, eq, gte, isNull, lte, or } from "drizzle-orm"
-import { revalidatePath } from "next/cache"
+import { and, eq, gte, isNull, lte, ne, or } from "drizzle-orm"
 
 // ─── List ─────────────────────────────────────────────────────────────────────
 
@@ -34,6 +33,40 @@ export async function generateFinalReportAction(year: number, month: number) {
   const session = await auth()
   if (!session?.user?.id) return { error: "Não autenticado." }
   return generateReport(session.user.id, year, month, "final")
+}
+
+// Finaliza todos os relatórios parciais de meses passados do usuário autenticado
+export async function finalizePastReportsAction() {
+  const session = await auth()
+  if (!session?.user?.id) return { error: "Não autenticado." }
+  return finalizePastReportsForUser(session.user.id)
+}
+
+// Finaliza relatórios parciais de meses passados para um userId específico (uso interno/cron)
+export async function finalizePastReportsForUser(userId: string) {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const currentMonth = now.getMonth() + 1
+
+  const partialReports = await db
+    .select({ year: monthlyReports.year, month: monthlyReports.month })
+    .from(monthlyReports)
+    .where(
+      and(
+        eq(monthlyReports.userId, userId),
+        ne(monthlyReports.status, "final"),
+      ),
+    )
+
+  const pastPartial = partialReports.filter(
+    (r) => r.year < currentYear || (r.year === currentYear && r.month < currentMonth),
+  )
+
+  for (const { year, month } of pastPartial) {
+    await generateReport(userId, year, month, "final")
+  }
+
+  return { finalized: pastPartial.length }
 }
 
 // ─── Core logic ───────────────────────────────────────────────────────────────
@@ -170,7 +203,5 @@ async function generateReport(
     })
   }
 
-  revalidatePath("/report")
-  revalidatePath("/history")
   return { success: true }
 }

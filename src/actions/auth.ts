@@ -1,6 +1,6 @@
 "use server"
 
-import { signIn } from "@/src/auth"
+import { signIn, signOut } from "@/src/auth"
 import { db } from "@/src/db"
 import { users } from "@/src/db/schema"
 import { eq } from "drizzle-orm"
@@ -62,4 +62,10 @@ export async function signupAction(_prevState: unknown, formData: FormData) {
     if (isRedirectError(error)) throw error
     return { error: "Conta criada, mas houve um erro ao fazer login. Tente entrar manualmente." }
   }
+}
+
+// ─── Sign out ─────────────────────────────────────────────────────────────────
+
+export async function signOutAction() {
+  await signOut({ redirectTo: "/login" })
 }
